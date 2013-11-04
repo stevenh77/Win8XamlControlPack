@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="Win8XamlControlPack.Samples.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Win8XamlControlPack.Samples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:win8XamlControlPack="using:Win8XamlControlPack"
+    xmlns:converters="using:Win8XamlControlPack.Samples.Converters"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:MultiContentStateConverter x:Key="multiContentStateConverter" />
+        <!--<local:TileStateConverter x:Key="tileStateConverter" />
+        <telerik:ContainerBindingCollection x:Key="ContainerBindingCollection">
+            <telerik:ContainerBinding PropertyName="TileState"
+                                      Binding="{Binding ContentState, Mode=TwoWay, Converter={StaticResource tileStateConverter}}" />
+        </telerik:ContainerBindingCollection>-->
+
+        <DataTemplate x:Key="ItemTemplate"> <!--telerik:ContainerBinding.ContainerBindings="{StaticResource ContainerBindingCollection}">-->
+            <TextBlock Text="{Binding Header}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ContentTemplate">
+            <win8XamlControlPack:MultiContentControl ContentChangeMode="Automatic" State="{Binding ContentState, Converter={StaticResource multiContentStateConverter}}">
+                <win8XamlControlPack:MultiContentControl.SmallContent>
+                    <TextBlock Text="{Binding Header}" FontSize="8" Foreground="Red" />
+                </win8XamlControlPack:MultiContentControl.SmallContent>
+                <win8XamlControlPack:MultiContentControl.Content>
+                    <TextBlock Text="{Binding Header}" FontSize="32" Foreground="Yellow"/>
+                </win8XamlControlPack:MultiContentControl.Content>
+                <win8XamlControlPack:MultiContentControl.LargeContent>
+                    <TextBlock Text="{Binding Header}" FontSize="64" Foreground="Blue"/>
+                </win8XamlControlPack:MultiContentControl.LargeContent>
+            </win8XamlControlPack:MultiContentControl>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TileView x:Name="tileView"
+                    ContentTemplate="{StaticResource ContentTemplate}"
+                    ItemTemplate="{StaticResource ItemTemplate}"
+                    MinimizedColumnWidth="200"
+                    MinimizedItemsPosition="Right"
+                    MinimizedRowHeight="200" />
+    </Grid>
+</Page>
